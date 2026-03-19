@@ -1,0 +1,18 @@
+name: Build Windows EXE
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - run: pip install pygame pyinstaller
+      - run: pyinstaller --onefile --noconsole --add-data "Biscuit.png;." --add-data "Flip.png;." --add-data "flip2.png;." --add-data "flip3.png;." --add-data "Wohnzimmer5.png;." --add-data "Pixel Game.otf;." --add-data "crunch.mp3;." --add-data "celebration.mp3;." --add-data "stars.png;." --add-data "Biscuitfrisst.png;." --add-data "Biscuittraurig.png;." --add-data "highscore.txt;." biscuit.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: biscuit-windows
+          path: dist/biscuit.exe

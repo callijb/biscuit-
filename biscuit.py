@@ -51,19 +51,17 @@ def main():
 
     # Funktion: Highscore in einer Text-Datei speichern 
     def save_highscore(highscore): 
-        """Save the highscore to a text file."""
-        with open("highscore.txt", "w") as file: 
+        path = os.path.join(os.path.expanduser("~"), "biscuit_highscore.txt")
+        with open(path, "w") as file: 
             file.write(str(highscore))
 
     # Funktion: Highscore laden
     def load_highscore():
-        """Load the highscore from the text file. Default to 0 if file not found."""
         try:
-            with open("highscore.txt", "r") as file:
-                # Read the file and convert to integer
+            path = os.path.join(os.path.expanduser("~"), "biscuit_highscore.txt")
+            with open(path, "r") as file:
                 return int(file.read())
         except FileNotFoundError:
-            # If file doesn't exist, return 0
             return 0
 
     # Highscore als Text darstellen 

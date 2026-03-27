@@ -1,6 +1,7 @@
 import pygame 
 import random 
 import sys, os
+import math 
 
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
@@ -152,6 +153,7 @@ def main():
     crunch = pygame.mixer.Sound(resource_path('crunch.mp3'))
     crunch.set_volume(0.5)
 
+    
     #Game over 
     font_gameover = pygame.font.Font(resource_path('Pixel Game.otf'),100)
     game_over = font_gameover.render("GAME OVER",1, (174,32,41)) 
@@ -210,7 +212,7 @@ def main():
                 screen.blit(flip["image"], (flip["spalte"] * 50, flip["reihe"] *50))
 
                 #flip nur alle paar frames fallen lassen  
-                flip["reihe"] += flip ["speed"] + 0.01 * score 
+                flip["reihe"] +=  flip ["speed"] + 0.015 * math.sqrt(score)
 
                 # Der Score geht hoch, pro gefangener Flip 
                 if flip["reihe"] >= biscuit_reihe and flip["spalte"] == 0.5 + biscuit_spalte: 
@@ -249,8 +251,7 @@ def main():
                     particle["y"] += particle["speed"]
 
             
-
-
+            
            
         
         # Display score 
@@ -319,6 +320,7 @@ def main():
                         "image": random.choice(flip_images),
                         "speed": 0.05 }
                     flips.append(new_flip) 
+                    
                     biscuit_spalte = 8 
                     confetti_active = False
                     show_new_highscore = False
